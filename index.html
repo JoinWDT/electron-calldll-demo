@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="GB2312">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.<br/>
+    <input type="button" value="call" id="callAdd"></input><br/>
+    <input type="button" value="callStringtest" id="callStringtest"></input><br/>
+    <input type="button" value="callJsFun" id="callJsFun"></input><br/>
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+      const ffi = require('ffi')
+      const ref = require('ref')
+      const stringPointer = ref.refType(ref.types.CString)
+
+      let dllObj = ffi.Library(__dirname + '/dllProject.dll', {
+        'add': ['int', ['int', 'int']],
+        'stringtest': ['int', [stringPointer, 'int *']],
+        'callJsFun': ['void', []],
+        'setcallback': ['void', ['pointer']]
+      })
+      let callback = ffi.Callback('void', ['string'], function (str) {
+        alert(str)
+      })
+      dllObj.setcallback(callback)
+      document.getElementById('callAdd').onclick = function () {
+        let results = dllObj.add(1, 2)
+        alert(results)
+      }
+      document.getElementById('callStringtest').onclick = function () {
+        let stringData = ref.alloc('string')
+        let stringLen = ref.alloc('int')
+        let results = dllObj.stringtest(stringData, stringLen)
+        stringData = ref.readPointer(stringData, 0, ref.deref(stringLen))
+        alert(results + ': ' + stringData.toString())
+      }
+      document.getElementById('callJsFun').onclick = function () {
+        dllObj.callJsFun()
+      }
+    </script>
+  </body>
+</html>

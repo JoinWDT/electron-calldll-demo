@@ -13,6 +13,7 @@ cd electron-calldll-demo
 npm install
 ```
 ## Building
+Make sure your node is x86, and if not, reinstall it.
 Make sure your electron is correct. If not, please re-install
  ```bash
  npm install --arch=ia32 -platform=win32 electron@4.0.0

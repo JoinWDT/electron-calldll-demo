@@ -1,0 +1,9 @@
+﻿  stdafx.cpp
+  dllmain.cpp
+  dllProject.cpp
+    正在创建库 C:\work\work\demo\electron-calldll-demo\dllProject\dllProject\Release\dllProject.lib 和对象 C:\work\work\demo\electron-calldll-demo\dllProject\dllProject\Release\dllProject.exp
+  正在生成代码
+  All 73 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  dllProject.vcxproj -> C:\work\work\demo\electron-calldll-demo\dllProject\dllProject\Release\dllProject.dll
+  dllProject.vcxproj -> C:\work\work\demo\electron-calldll-demo\dllProject\dllProject\Release\dllProject.pdb (Full PDB)
